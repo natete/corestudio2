@@ -1,30 +1,23 @@
 package com.onewingsoft.corestudio.rest;
 
 import com.onewingsoft.corestudio.business.AuthenticationBusinessLogic;
-import com.onewingsoft.corestudio.dto.PasswordDTO;
-import com.onewingsoft.corestudio.dto.PrincipalDTO;
 import com.onewingsoft.corestudio.model.Person;
-import com.onewingsoft.corestudio.model.RegisteredUser;
 import com.onewingsoft.corestudio.security.auth.jwt.extractor.TokenExtractor;
-import com.onewingsoft.corestudio.security.auth.jwt.verifier.TokenVerifier;
-import com.onewingsoft.corestudio.security.config.JwtSettings;
 import com.onewingsoft.corestudio.security.config.WebSecurityConfig;
-import com.onewingsoft.corestudio.security.exceptions.JwtInvalidToken;
-import com.onewingsoft.corestudio.security.model.JWTRawAccessToken;
-import com.onewingsoft.corestudio.security.model.JWTRefreshToken;
+import com.onewingsoft.corestudio.security.handlers.JWTAuthenticationSuccessHandler;
 import com.onewingsoft.corestudio.security.model.JWTToken;
-import com.onewingsoft.corestudio.utils.CorestudioException;
-import com.onewingsoft.corestudio.utils.HeaderUtil;
 import com.onewingsoft.corestudio.utils.LoggerUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.util.Map;
 
 /**
  * @author Ignacio González Bullón - <nacho.gonzalez.bullon@gmail.com>
@@ -40,12 +33,14 @@ public class AuthenticationRestService {
     @Autowired
     private TokenExtractor tokenExtractor;
 
-    @RequestMapping(value = "/token", method = RequestMethod.GET)
-    public ResponseEntity<JWTToken> refreshToken(HttpServletRequest request, HttpServletResponse response) {
-        String tokenPayload = tokenExtractor.extract(request.getHeader(WebSecurityConfig.HEADER_STRING));
+    @RequestMapping(value = "/refresh", method = RequestMethod.POST)
+    public ResponseEntity<JWTToken> refreshToken(HttpServletRequest request, HttpServletResponse response,
+            @RequestBody final Map<String, String> payload) {
+        //        String tokenPayload = tokenExtractor.extract(refreshToken);
 
         try {
-            JWTToken token = authenticationBusinessLogic.refreshToken(tokenPayload);
+            JWTToken token = authenticationBusinessLogic
+                    .refreshToken(payload.get(JWTAuthenticationSuccessHandler.REFRESH_TOKEN));
 
             return ResponseEntity.ok().body(token);
         } catch (Exception e) {

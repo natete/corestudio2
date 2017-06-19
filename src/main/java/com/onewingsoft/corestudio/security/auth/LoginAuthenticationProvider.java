@@ -34,7 +34,7 @@ public class LoginAuthenticationProvider implements AuthenticationProvider{
 
         RegisteredUser user = registeredUserRepository.findByUsername(username);
 
-        if (!encoder.matches(password, user.getPassword())) {
+        if (user == null || !encoder.matches(password, user.getPassword())) {
             throw new BadCredentialsException("Usuario o contraseña incorrectas");
         }
 

@@ -9,7 +9,6 @@ import com.onewingsoft.corestudio.security.config.JwtSettings;
 import com.onewingsoft.corestudio.security.exceptions.JwtInvalidToken;
 import com.onewingsoft.corestudio.security.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +33,7 @@ public class AuthenticationBusinessLogic {
     public JWTAccessToken refreshToken(String tokenPayload) throws Exception {
         JWTRawAccessToken rawAccessToken = new JWTRawAccessToken(tokenPayload);
         JWTRefreshToken refreshToken = JWTRefreshToken.create(rawAccessToken, jwtSettings.getSecret())
-                                                      .orElseThrow(() -> new JwtInvalidToken());
+                                                      .orElseThrow(JwtInvalidToken::new);
 
         String jti = refreshToken.getJti();
 
@@ -60,7 +59,7 @@ public class AuthenticationBusinessLogic {
         String subject = rawAccessToken.parseClaims(jwtSettings.getSecret()).getBody().getSubject();
 
         JWTRefreshToken refreshToken = JWTRefreshToken.create(rawRefreshToken, jwtSettings.getSecret())
-                                                      .orElseThrow(() -> new JwtInvalidToken());
+                                                      .orElseThrow(JwtInvalidToken::new);
 
         if (refreshToken.getSubject().equals(subject)) {
             tokenVerifier.revokeToken(refreshToken.getJti(), refreshToken.getExpirationDate());
@@ -70,11 +69,11 @@ public class AuthenticationBusinessLogic {
     }
 
     public Person getAccount() {
-        User user = SecurityUtils.getCurrentUser();
+        UserContext user = SecurityUtils.getCurrentUser();
 
         String username = user.getUsername();
 
-        RegisteredUser.CorestudioRole role = (RegisteredUser.CorestudioRole) user.getAuthorities().stream().findFirst().get();
+        RegisteredUser.CorestudioRole role = user.getAuthorities().stream().findFirst().get();
 
         Person person = personBusinessLogin.findPerson(username, role);
 

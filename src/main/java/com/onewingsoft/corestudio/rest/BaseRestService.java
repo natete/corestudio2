@@ -22,7 +22,8 @@ import java.net.URISyntaxException;
 public abstract class BaseRestService<T extends BaseEntity> {
 
     @RequestMapping(method = RequestMethod.GET)
-    public Page<T> getAll(@PathParam("page") Integer page, @PathParam("size") Integer size, @PathParam("sortBy") String sortBy, @PathParam("direction") String direction) {
+    public Page<? extends T> getAll(@PathParam("page") Integer page, @PathParam("size") Integer size,
+            @PathParam("sortBy") String sortBy, @PathParam("direction") String direction) {
         return this.getBusinessLogic().getAllEntities(page, size, sortBy, direction);
     }
 

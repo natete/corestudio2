@@ -2,7 +2,6 @@ package com.onewingsoft.corestudio.security.filters;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.onewingsoft.corestudio.security.model.LoginRequest;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -35,7 +34,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException, IOException, ServletException {
 
-        LoginRequest user = new ObjectMapper().readValue(request.getInputStream(), LoginRequest.class);
+        LoginRequest user = this.mapper.readValue(request.getInputStream(), LoginRequest.class);
 
         return getAuthenticationManager().authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -50,5 +49,11 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
             Authentication authResult) throws IOException, ServletException {
         successHandler.onAuthenticationSuccess(request, response, authResult);
+    }
+
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+            AuthenticationException failed) throws IOException, ServletException {
+        failureHandler.onAuthenticationFailure(request, response, failed);
     }
 }

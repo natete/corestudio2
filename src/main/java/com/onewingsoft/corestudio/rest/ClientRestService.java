@@ -17,8 +17,8 @@ public class ClientRestService extends BaseRestService<Client> {
     @Autowired
     private ClientBusinessLogic clientBusinessLogic;
 
-    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
-    public Page<ClientDTO> getAllClients(Integer page, Integer size, String sortBy, String direction) {
+    @RequestMapping(method = RequestMethod.GET)
+    public Page<ClientDTO> getAll(Integer page, Integer size, String sortBy, String direction) {
         return clientBusinessLogic.getAllDtos(page, size, sortBy, direction);
     }
 

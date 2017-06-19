@@ -1,42 +1,17 @@
 package com.onewingsoft.corestudio.dto;
 
+import com.onewingsoft.corestudio.model.Client;
+
 import java.util.Date;
 
 /**
  * @author Ignacio González Bullón - <nacho.gonzalez.bullon@gmail.com>
  * @since 02/01/16.
  */
-public class ClientDTO {
+public class ClientDTO extends Client {
 
-    private Long id;
-    private String name;
-    private String firstSurname;
     private Integer pendingSessions;
     private Date lastDate;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getFirstSurname() {
-        return firstSurname;
-    }
-
-    public void setFirstSurname(String firstSurname) {
-        this.firstSurname = firstSurname;
-    }
 
     public Integer getPendingSessions() {
         return pendingSessions;

@@ -23,6 +23,8 @@ import java.util.Map;
 @Component
 public class JWTAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
+    private static final String TOKEN = "token";
+    public static final String REFRESH_TOKEN = "refreshToken";
     private final ObjectMapper mapper;
     private final JWTTokenFactory tokenFactory;
 
@@ -42,8 +44,8 @@ public class JWTAuthenticationSuccessHandler implements AuthenticationSuccessHan
         JWTToken refreshToken = tokenFactory.createRefreshToken(userContext);
 
         Map<String, String> tokenMap = new HashMap<>();
-        tokenMap.put("token", accessToken.getToken());
-        tokenMap.put("refreshToken", refreshToken.getToken());
+        tokenMap.put(TOKEN, accessToken.getToken());
+        tokenMap.put(REFRESH_TOKEN, refreshToken.getToken());
 
         response.setStatus(HttpStatus.OK.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);

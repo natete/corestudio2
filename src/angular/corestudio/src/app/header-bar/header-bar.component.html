@@ -1,0 +1,23 @@
+<md-toolbar color="primary">
+  <button md-button class="home-button">CoreStudio Pilates</button>
+  <span class="spacer"></span>
+
+   <button md-button [mdMenuTriggerFor]="userMenu">
+    <md-icon fontIcon="fa-user"></md-icon>
+    <span>{{username}}</span>
+  </button>
+
+  <md-menu #userMenu>
+
+    <button md-menu-item>
+      <md-icon fontIcon="fa-key"></md-icon>
+      <span>Cambiar Contraseña</span>
+    </button>
+
+    <button md-menu-item>
+      <md-icon fontIcon="fa-power-off"></md-icon>
+      <span>Salir</span>
+    </button>
+  </md-menu>
+
+</md-toolbar>

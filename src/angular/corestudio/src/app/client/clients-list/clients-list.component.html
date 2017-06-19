@@ -1,0 +1,5 @@
+<app-title icon="fa-user" title="Clientes"></app-title>
+
+<app-table [headers]="headers" [items]="clients" *ngIf="clients && clients.length"></app-table>
+
+<button md-fab><md-icon fontIcon="fa-plus"></md-icon></button>

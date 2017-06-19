@@ -1,0 +1,19 @@
+<ng-container *ngIf="person">
+  <app-header-bar [username]="person.getFullName()"></app-header-bar>
+
+  <app-sidebar [role]="person.role"></app-sidebar>
+
+</ng-container>
+
+<div class="content-wrapper">
+  <router-outlet></router-outlet>
+</div>
+
+<ng-container *ngIf="spinnerState | async">
+  <div class="backdrop"></div>
+  <md-progress-spinner
+      class="example-margin"
+      color="primary"
+      mode="indeterminate">
+  </md-progress-spinner>
+</ng-container>

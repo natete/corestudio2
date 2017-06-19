@@ -1,0 +1,25 @@
+.content-wrapper {
+  margin-left: 225px;
+  padding: 25px;
+}
+
+.backdrop {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: white;
+  opacity: .4;
+  z-index: 10;
+}
+
+md-progress-spinner {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 100;
+}

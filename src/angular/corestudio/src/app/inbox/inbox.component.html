@@ -1,0 +1,13 @@
+<app-title icon="fa-inbox" title="Bandeja de entrada"></app-title>
+
+<ng-container *ngFor="let message of messages">
+
+  <app-message [priority]="message.priority.valueOf()"
+               [text]="message.body"
+               [date]="message.date"
+               (onMessageRemoved)="removeMessage($event, message.id)"
+               (onMessageRead)="readMessage($event, message.id)">
+
+  </app-message>
+
+</ng-container>

@@ -1,0 +1,44 @@
+@import "../../../assets/scss/variables";
+
+$info-bg: #d9edf7;
+$info-border: #bce8f1;
+$info-color: #31708f;
+
+.message-wrapper {
+  padding: 15px 35px 15px 15px;
+  border: 1px solid;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &.info {
+    background-color: $info-bg;
+    border-color: $info-border;
+    color: $info-color;
+  }
+
+  .priority-icon {
+    text-align: center;
+    margin-right: 10px;
+  }
+
+  .content-wrapper {
+    line-height: 1.5em;
+    flex: 1;
+
+    .message-text {
+      font-weight: bold;
+    }
+  }
+
+  .actions-wrapper {
+    button {
+      min-width: 60px;
+    }
+
+    .fa-check {
+      color: $success-color;
+    }
+  }
+}

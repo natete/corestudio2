@@ -1,0 +1,46 @@
+<md-card class="">
+  <md-card-header>
+    <div class="logo-container">
+      <img src="../../assets/images/logo.png" alt="Logo">
+    </div>
+
+  </md-card-header>
+  <md-card-content>
+
+    <div class="login-error" *ngIf="error">
+      {{error}}
+    </div>
+
+    <form novalidate [formGroup]="login" (ngSubmit)="onSubmit(login)">
+      <md-input-container>
+        <input type="text" mdInput
+               formControlName="username"
+               placeholder="Nombre de usuario">
+      </md-input-container>
+
+      <div ngxErrors="username">
+        <div ngxError="required" [when]="['touched']">
+          El nombre de usuario es necesario
+        </div>
+      </div>
+
+      <md-input-container>
+        <input type="password" mdInput
+               formControlName="password"
+               placeholder="Contraseña"
+               autocomplete="new-password">
+      </md-input-container>
+
+      <div ngxErrors="password">
+        <div ngxError="required" [when]="['touched']">
+          La contraseña es necesaria
+        </div>
+      </div>
+      <button type="submit" md-raised-button
+              class="primary-color-bg login-button"
+              [disabled]="login.invalid || loading">
+        Entrar
+      </button>
+    </form>
+  </md-card-content>
+</md-card>

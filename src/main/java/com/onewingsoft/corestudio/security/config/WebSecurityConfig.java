@@ -93,11 +93,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/index.html").permitAll()
 
             .and()
+            .addFilterBefore(corsFilter, ChannelProcessingFilter.class)
             .authorizeRequests()
             .antMatchers(TOKEN_BASED_ENDPOINTS).authenticated()
 
             .and()
-            .addFilterBefore(corsFilter, ChannelProcessingFilter.class)
             .addFilterBefore(buildJwtLoginFilter(), UsernamePasswordAuthenticationFilter.class)
             .addFilterBefore(buildJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
@@ -125,7 +125,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         List<String> pathsToSkip = Arrays.asList(LOGIN_ENDPOINT, REFRESH_TOKEN_ENDPOINT);
         SkipPathRequestMatcher matcher = new SkipPathRequestMatcher(pathsToSkip, TOKEN_BASED_ENDPOINTS);
 
-        JWTTokenFilter filter = new JWTTokenFilter(failureHandler, tokenFactory, tokenExtractor, matcher);
+        JWTTokenFilter filter = new JWTTokenFilter(failureHandler, tokenExtractor, matcher);
 
         filter.setAuthenticationManager(this.authenticationManager);
 

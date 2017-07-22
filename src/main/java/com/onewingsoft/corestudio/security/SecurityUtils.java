@@ -1,5 +1,6 @@
 package com.onewingsoft.corestudio.security;
 
+import com.onewingsoft.corestudio.model.RegisteredUser;
 import com.onewingsoft.corestudio.security.model.UserContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -17,7 +18,7 @@ public class SecurityUtils {
      *
      * @return the current user
      */
-    public static UserContext getCurrentUser() {
+    public static UserContext getCurrentUser() throws IllegalStateException {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         Authentication authentication = securityContext.getAuthentication();
         if (authentication != null) {
@@ -26,5 +27,11 @@ public class SecurityUtils {
             }
         }
         throw new IllegalStateException("User not found!");
+    }
+
+    public static RegisteredUser.CorestudioRole getCurrentUserRole() throws IllegalStateException {
+        final UserContext userContext = SecurityUtils.getCurrentUser();
+
+        return userContext.getAuthorities().stream().findFirst().get();
     }
 }

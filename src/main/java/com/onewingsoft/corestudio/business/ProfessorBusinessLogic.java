@@ -21,11 +21,11 @@ public class ProfessorBusinessLogic extends BaseBusinessLogic<Professor> {
     private ProfessorRepository professorRepository;
 
     @Autowired
-    private PersonBusinessLogin personBusinessLogin;
+    private PersonBusinessLogic personBusinessLogic;
 
     @Override
     public Professor createEntity(Professor professor) throws CorestudioException {
-        personBusinessLogin.encodePassword(professor.getRegisteredUser());
+        personBusinessLogic.encodePassword(professor.getRegisteredUser());
         return super.createEntity(professor);
     }
 
@@ -35,7 +35,7 @@ public class ProfessorBusinessLogic extends BaseBusinessLogic<Professor> {
     @Override
     protected void validateEntity(Professor professor) throws CorestudioException {
 
-        personBusinessLogin.validateEntity(professor.getRegisteredUser());
+        personBusinessLogic.validateEntity(professor.getRegisteredUser());
 
         if (professor.getName() == null) {
             throw new CorestudioException("Un profesor debe tener un nombre");

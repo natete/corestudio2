@@ -7,10 +7,17 @@ import com.onewingsoft.corestudio.security.SecurityUtils;
 import com.onewingsoft.corestudio.security.auth.jwt.verifier.TokenVerifier;
 import com.onewingsoft.corestudio.security.config.JwtSettings;
 import com.onewingsoft.corestudio.security.exceptions.JwtInvalidToken;
-import com.onewingsoft.corestudio.security.model.*;
+import com.onewingsoft.corestudio.security.handlers.JWTAuthenticationSuccessHandler;
+import com.onewingsoft.corestudio.security.model.JWTRawAccessToken;
+import com.onewingsoft.corestudio.security.model.JWTRefreshToken;
+import com.onewingsoft.corestudio.security.model.JWTTokenFactory;
+import com.onewingsoft.corestudio.security.model.UserContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class AuthenticationBusinessLogic {
@@ -28,9 +35,10 @@ public class AuthenticationBusinessLogic {
     private RegisteredUserRepository registeredUserRepository;
 
     @Autowired
-    private PersonBusinessLogin personBusinessLogin;
+    private PersonBusinessLogic personBusinessLogic;
 
-    public JWTAccessToken refreshToken(String tokenPayload) throws Exception {
+    public Map<String, String> refreshToken(String tokenPayload) throws Exception {
+        Map<String, String> result = new HashMap<>();
         JWTRawAccessToken rawAccessToken = new JWTRawAccessToken(tokenPayload);
         JWTRefreshToken refreshToken = JWTRefreshToken.create(rawAccessToken, jwtSettings.getSecret())
                                                       .orElseThrow(JwtInvalidToken::new);
@@ -47,9 +55,13 @@ public class AuthenticationBusinessLogic {
         if (registeredUser == null) {
             throw new UsernameNotFoundException("El usuario no existe");
         }
-            UserContext userContext = UserContext.create(registeredUser.getUsername(), registeredUser.getAuthorities());
 
-            return tokenFactory.createAccessToken(userContext);
+        UserContext userContext = UserContext.create(registeredUser.getUsername(), registeredUser.getAuthorities());
+
+        result.put(JWTAuthenticationSuccessHandler.REFRESH_TOKEN, tokenFactory.createRefreshToken(userContext)
+                                                                              .getToken());
+        result.put(JWTAuthenticationSuccessHandler.TOKEN, tokenFactory.createAccessToken(userContext).getToken());
+        return result;
     }
 
     public void revokeToken(String tokenPayload, String refreshTokenPayload) {
@@ -75,7 +87,7 @@ public class AuthenticationBusinessLogic {
 
         RegisteredUser.CorestudioRole role = user.getAuthorities().stream().findFirst().get();
 
-        Person person = personBusinessLogin.findPerson(username, role);
+        Person person = personBusinessLogic.findPerson(username, role);
 
         if (person == null) {
             throw new UsernameNotFoundException("El usuario no existe");

@@ -1,7 +1,5 @@
 package com.onewingsoft.corestudio.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -15,7 +13,7 @@ import java.util.Date;
 public class Person extends BaseEntity {
 
     @NotNull
-    @OneToOne(fetch=FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private RegisteredUser registeredUser;
 
     @Column
@@ -143,10 +141,9 @@ public class Person extends BaseEntity {
         this.address = address;
     }
 
-    @JsonIgnore
     @Transient
     public String getFullName() {
-        return name + " " + firstSurname;
+        return this.name + " " + this.firstSurname + " " + this.secondSurname;
     }
 
     @Override

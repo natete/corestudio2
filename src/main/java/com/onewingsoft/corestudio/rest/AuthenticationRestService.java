@@ -5,7 +5,6 @@ import com.onewingsoft.corestudio.model.Person;
 import com.onewingsoft.corestudio.security.auth.jwt.extractor.TokenExtractor;
 import com.onewingsoft.corestudio.security.config.WebSecurityConfig;
 import com.onewingsoft.corestudio.security.handlers.JWTAuthenticationSuccessHandler;
-import com.onewingsoft.corestudio.security.model.JWTToken;
 import com.onewingsoft.corestudio.utils.LoggerUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,15 +33,15 @@ public class AuthenticationRestService {
     private TokenExtractor tokenExtractor;
 
     @RequestMapping(value = "/refresh", method = RequestMethod.POST)
-    public ResponseEntity<JWTToken> refreshToken(HttpServletRequest request, HttpServletResponse response,
+    public ResponseEntity<Map<String, String>> refreshToken(HttpServletRequest request, HttpServletResponse response,
             @RequestBody final Map<String, String> payload) {
         //        String tokenPayload = tokenExtractor.extract(refreshToken);
 
         try {
-            JWTToken token = authenticationBusinessLogic
+            Map<String, String> result = authenticationBusinessLogic
                     .refreshToken(payload.get(JWTAuthenticationSuccessHandler.REFRESH_TOKEN));
 
-            return ResponseEntity.ok().body(token);
+            return ResponseEntity.ok().body(result);
         } catch (Exception e) {
             LoggerUtil.writeErrorLog(e.getMessage(), e);
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

@@ -21,13 +21,13 @@ import java.net.URISyntaxException;
 @RestController
 public abstract class BaseRestService<T extends BaseEntity> {
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public Page<? extends T> getAll(@PathParam("page") Integer page, @PathParam("size") Integer size,
-            @PathParam("sortBy") String sortBy, @PathParam("direction") String direction) {
+            @PathParam("sortBy") String sortBy, @PathParam("direction") String direction, @PathParam("q") String q) {
         return this.getBusinessLogic().getAllEntities(page, size, sortBy, direction);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public ResponseEntity<T> getEntity(@PathVariable Long id) {
         T entity = this.getBusinessLogic().getEntity(id);
         if (null != entity) {
@@ -39,8 +39,8 @@ public abstract class BaseRestService<T extends BaseEntity> {
         }
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<T> saveEntity(@RequestBody T entity) {
+    @PostMapping
+    public ResponseEntity<? extends T> saveEntity(@RequestBody T entity) {
         try {
             T result = this.getBusinessLogic().createEntity(entity);
             return ResponseEntity.created(new URI(this.getUri()))
@@ -57,8 +57,8 @@ public abstract class BaseRestService<T extends BaseEntity> {
         }
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<T> updateEntity(@RequestBody T entity) {
+    @PutMapping
+    public ResponseEntity<? extends T> updateEntity(@RequestBody T entity) {
         try {
             T result = this.getBusinessLogic().updateEntity(entity);
             return ResponseEntity.created(new URI(this.getUri()))
@@ -75,8 +75,8 @@ public abstract class BaseRestService<T extends BaseEntity> {
         }
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<T> deleteEntity(@PathVariable Long id) {
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<? extends T> deleteEntity(@PathVariable Long id) {
         try {
             T result = this.getBusinessLogic().deleteEntity(id);
             return ResponseEntity.created(new URI(this.getUri()))

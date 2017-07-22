@@ -1,10 +1,8 @@
 package com.onewingsoft.corestudio.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -21,6 +19,9 @@ public class Professor extends Person {
 
     @Column
     private Integer holidaysUsed;
+
+    @Column
+    private String color;
 
     public Professor() {
         super();
@@ -48,5 +49,13 @@ public class Professor extends Person {
 
     public void setHolidaysUsed(Integer holidaysUsed) {
         this.holidaysUsed = holidaysUsed;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

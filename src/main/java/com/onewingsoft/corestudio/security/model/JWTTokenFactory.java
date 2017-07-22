@@ -7,21 +7,19 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.*;
+import java.util.Collections;
+import java.util.Date;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
 public class JWTTokenFactory {
 
     public static final String ROLES_KEY = "roles";
-    private static final String TOKEN_PREFIX = "Bearer ";
 
     @Autowired
     private JwtSettings jwtSettings;

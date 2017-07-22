@@ -24,6 +24,9 @@ public class Client extends Person {
     @Size(min = 0, max = 350)
     private String comments;
 
+    @Column
+    private boolean isActive;
+
     public String getSecondPhone() {
         return secondPhone;
     }
@@ -38,5 +41,13 @@ public class Client extends Person {
 
     public void setComments(String comments) {
         this.comments = comments;
+    }
+
+    public boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean active) {
+        isActive = active;
     }
 }

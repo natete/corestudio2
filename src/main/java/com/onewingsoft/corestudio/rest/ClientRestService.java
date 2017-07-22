@@ -18,8 +18,8 @@ public class ClientRestService extends BaseRestService<Client> {
     private ClientBusinessLogic clientBusinessLogic;
 
     @RequestMapping(method = RequestMethod.GET)
-    public Page<ClientDTO> getAll(Integer page, Integer size, String sortBy, String direction) {
-        return clientBusinessLogic.getAllDtos(page, size, sortBy, direction);
+    public Page<ClientDTO> getAll(Integer page, Integer size, String sortBy, String direction, String q) {
+        return clientBusinessLogic.getAllDtos(page, size, sortBy, direction, q);
     }
 
     @Override

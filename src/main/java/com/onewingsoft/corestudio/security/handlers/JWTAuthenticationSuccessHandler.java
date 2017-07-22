@@ -23,7 +23,7 @@ import java.util.Map;
 @Component
 public class JWTAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
-    private static final String TOKEN = "token";
+    public static final String TOKEN = "token";
     public static final String REFRESH_TOKEN = "refreshToken";
     private final ObjectMapper mapper;
     private final JWTTokenFactory tokenFactory;

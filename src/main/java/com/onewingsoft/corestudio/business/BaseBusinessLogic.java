@@ -27,14 +27,7 @@ public abstract class BaseBusinessLogic<T extends BaseEntity> {
      * @return {@link Page} of entities.
      */
     public Page<T> getAllEntities(Integer page, Integer size, String sortBy, String direction) {
-        Sort sort = null;
-        if (sortBy != null) {
-            sort = new Sort(Sort.Direction.fromString(direction), sortBy);
-        }
-        Pageable pageRequest = null;
-        if(page != null) {
-            pageRequest = new PageRequest(page, size, sort);
-        }
+        Pageable pageRequest = getPageable(page, size, sortBy, direction);
         return this.getRepository().findAll(pageRequest);
     }
 
@@ -103,6 +96,18 @@ public abstract class BaseBusinessLogic<T extends BaseEntity> {
             LoggerUtil.writeErrorLog(message, e);
             throw new CorestudioException(message);
         }
+    }
+
+    protected Pageable getPageable(Integer page, Integer size, String sortBy, String direction) {
+        Sort sort = null;
+        if (sortBy != null) {
+            sort = new Sort(Sort.Direction.fromString(direction), sortBy);
+        }
+        Pageable pageRequest = null;
+        if (page != null) {
+            pageRequest = new PageRequest(page, size, sort);
+        }
+        return pageRequest;
     }
 
     /**

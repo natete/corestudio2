@@ -2,10 +2,8 @@ package com.onewingsoft.corestudio.security.filters;
 
 import com.onewingsoft.corestudio.security.auth.jwt.JWTAuthenticationToken;
 import com.onewingsoft.corestudio.security.auth.jwt.extractor.TokenExtractor;
-import com.onewingsoft.corestudio.security.model.JWTRawAccessToken;
-import com.onewingsoft.corestudio.security.model.JWTTokenFactory;
 import com.onewingsoft.corestudio.security.config.WebSecurityConfig;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.onewingsoft.corestudio.security.model.JWTRawAccessToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
@@ -23,15 +21,12 @@ import java.io.IOException;
 public class JWTTokenFilter extends AbstractAuthenticationProcessingFilter {
 
     private final AuthenticationFailureHandler failureHandler;
-    private final JWTTokenFactory JWTTokenFactory;
     private final TokenExtractor tokenExtractor;
 
-    @Autowired
-    public JWTTokenFilter(AuthenticationFailureHandler failureHandler, JWTTokenFactory JWTTokenFactory,
+    public JWTTokenFilter(AuthenticationFailureHandler failureHandler,
             TokenExtractor tokenExtractor, RequestMatcher matcher) {
         super(matcher);
         this.failureHandler = failureHandler;
-        this.JWTTokenFactory = JWTTokenFactory;
         this.tokenExtractor = tokenExtractor;
     }
 

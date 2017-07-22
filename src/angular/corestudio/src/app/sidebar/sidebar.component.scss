@@ -2,15 +2,14 @@
 
 .sidebar-wrapper {
   height: calc(100vh - #{$header-bar-height});
-  width: 225px;
+  width: $sidebar-width;
   position: absolute;
 
   button {
     width: 100%;
     height: 50px;
-    color: white;
     text-align: left;
-    color: #bfbfbf;
+    color: $basic-font-color;
 
     &:hover,
     &.active {

@@ -12,7 +12,7 @@ export class TokenService {
     return authInfo ? JSON.parse(authInfo).token : null;
   }
 
-  setAuthInfo(authInfo: any) {
+  setAuthInfo(authInfo: any = {}) {
     localStorage.setItem(this.AUTH_INFO_KEY, JSON.stringify(authInfo));
   }
 
@@ -25,7 +25,7 @@ export class TokenService {
     localStorage.removeItem(this.AUTH_INFO_KEY);
   }
 
-  setAccessToken(token: string) {
+  setAccessToken(token: string = '') {
     const rawAuthInfo = localStorage.getItem(this.AUTH_INFO_KEY);
     const authInfo = rawAuthInfo && JSON.parse(rawAuthInfo);
     authInfo.token = token;

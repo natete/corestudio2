@@ -1,6 +1,10 @@
+@import "../../assets/scss/variables";
+
 .content-wrapper {
-  margin-left: 225px;
-  padding: 25px;
+  overflow: auto;
+  height: calc(100% - #{$header-bar-height} - 2 * #{$content-padding});
+  margin-left: $sidebar-width;
+  padding: $content-padding;
 }
 
 .backdrop {

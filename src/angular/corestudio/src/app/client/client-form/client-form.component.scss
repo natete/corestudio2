@@ -1,0 +1,64 @@
+.wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.left-column {
+  width: 33%;
+  display: flex;
+
+  .profile-image-wrapper {
+    width: 100%;
+    text-align: center;
+    align-self: baseline;
+
+    .fix-image-aspect-ratio {
+      width: 75%;
+      position: relative;
+      margin: 50px auto 20px auto;
+
+      &:before {
+        content: '';
+        display: block;
+        padding-top: 100%;
+      }
+
+      .profile-image {
+        border-radius: 50%;
+        box-shadow: 2px 0 5px 0 rgba(0, 0, 0, 0.75);
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: no-repeat center;
+        background-size: cover;
+      }
+    }
+  }
+}
+
+.change-image-button {
+  align-self: baseline;
+}
+
+.form-wrapper {
+  width: 66%;
+  display: flex;
+  justify-content: center;
+
+  .user-form {
+    width: 60%;
+    align-self: baseline;
+
+    app-input {
+      display: block;
+      width: 100%;
+      margin-bottom: 5px;
+    }
+
+    .buttons-wrapper {
+      text-align: right;
+    }
+  }
+}

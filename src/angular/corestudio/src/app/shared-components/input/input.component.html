@@ -1,0 +1,6 @@
+<ng-container [ngSwitch]="inputInfo.type">
+  <app-datepicker *ngSwitchCase="'date'" [group]="group" [inputInfo]="inputInfo"></app-datepicker>
+  <app-toggle *ngSwitchCase="'toggle'" [group]="group" [inputInfo]="inputInfo"></app-toggle>
+  <app-input-textarea *ngSwitchCase="'textarea'" [group]="group" [inputInfo]="inputInfo"></app-input-textarea>
+  <app-input-text *ngSwitchDefault [group]="group" [inputInfo]="inputInfo"></app-input-text>
+</ng-container>

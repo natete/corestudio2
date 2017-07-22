@@ -1,0 +1,14 @@
+md-input-container {
+  width: 100%;
+}
+
+button[mdSuffix] {
+  background: none;
+  border: none;
+  font-size: 24px;
+  box-sizing: content-box;
+
+  &:focus {
+    outline: none;
+  }
+}

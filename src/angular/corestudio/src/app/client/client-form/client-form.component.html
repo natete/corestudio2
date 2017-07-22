@@ -1,0 +1,39 @@
+<!--<md-grid-list cols="3" rowHeight="1150px">-->
+<!--<md-grid-tile colspan="1" rowspan="1">-->
+<div class="wrapper">
+  <div class="left-column">
+    <div class="profile-image-wrapper">
+      <div class="fix-image-aspect-ratio">
+        <div [style.background-image]="'url(' + (client.photo || '/assets/images/face.png') + ')'" class="profile-image"></div>
+      </div>
+      <button md-raised-button class="change-image-button accent-color-bg primary-color-font">Cambiar imagen</button>
+    </div>
+  </div>
+  <!--</md-grid-tile>-->
+  <!--<md-grid-tile colspan="2" rowspan="1">-->
+  <div class="form-wrapper">
+    <form novalidate [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form">
+
+      <ng-container *ngIf="userForm">
+        <ng-container *ngFor="let formField of formFields">
+          <app-input [inputInfo]="formField" [group]="userForm"></app-input>
+          <!--<app-datepicker *ngIf="formField.type === 'date'" [inputInfo]="formField" [group]="userForm"></app-datepicker>-->
+        </ng-container>
+      </ng-container>
+
+      <div class="buttons-wrapper">
+        <button type="button" md-button (click)="cancel()">Cancelar</button>
+
+        <button type="submit" md-raised-button
+                class="accent-color-bg primary-color-font"
+                [disabled]="userForm.invalid || loading">
+          Guardar
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
+<!--</md-grid-tile>-->
+
+<!--</md-grid-list>-->

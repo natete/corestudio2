@@ -1,5 +1,8 @@
-<app-title icon="fa-user" title="Clientes"></app-title>
+<app-table [tableDefinition]="tableDefinition"
+           [items]="clients"
+           (onSearch)="search($event)">
+</app-table>
 
-<app-table [headers]="headers" [items]="clients" *ngIf="clients && clients.length"></app-table>
-
-<button md-fab><md-icon fontIcon="fa-plus"></md-icon></button>
+<button md-fab class="add-client-button" (click)="goToNewClient()">
+  <md-icon fontIcon="fa-plus"></md-icon>
+</button>

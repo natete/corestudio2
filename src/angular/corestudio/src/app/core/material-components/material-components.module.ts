@@ -1,7 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  MdButtonModule, MdCardModule, MdIconModule, MdIconRegistry, MdInputModule, MdMenuModule,
+  MdButtonModule,
+  MdCardModule,
+  MdGridListModule,
+  MdIconModule,
+  MdIconRegistry,
+  MdInputModule,
+  MdMenuModule,
   MdProgressSpinnerModule
 } from '@angular/material';
 
@@ -9,6 +15,7 @@ import {
   imports: [
     CommonModule,
     MdCardModule,
+    MdGridListModule,
     MdIconModule,
     MdInputModule,
     MdMenuModule,
@@ -17,6 +24,7 @@ import {
   exports: [
     MdButtonModule,
     MdCardModule,
+    MdGridListModule,
     MdIconModule,
     MdInputModule,
     MdMenuModule,

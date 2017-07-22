@@ -6,6 +6,8 @@ import { ContainerComponent } from '../../container/container.component';
 import { InboxPageComponent } from '../../inbox/inbox.component';
 import { AuthModule } from '../auth/auth.module';
 import { ClientsListComponent } from '../../client/clients-list/clients-list.component';
+import { ClientContainerComponent } from '../../client/client-container/client-container.component';
+import { ClientFormComponent } from '../../client/client-form/client-form.component';
 
 const routes: Routes = [
   {
@@ -15,7 +17,14 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'inbox', pathMatch: 'full' },
       { path: 'inbox', component: InboxPageComponent },
-      { path: 'clients', component: ClientsListComponent }
+      {
+        path: 'clients', component: ClientContainerComponent,
+        children: [
+          { path: '', component: ClientsListComponent },
+          { path: 'new', component: ClientFormComponent }
+        ]
+      },
+
     ]
   },
   { path: 'login', component: LoginPageComponent, canActivate: [AuthGuard] }

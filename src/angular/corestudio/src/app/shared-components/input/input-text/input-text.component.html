@@ -1,0 +1,22 @@
+<md-input-container [formGroup]="group">
+
+  <input [type]="inputInfo.type" mdInput
+         [formControlName]="inputInfo.formControlName"
+         [placeholder]="inputInfo.placeholder"
+         [autocomplete]="inputInfo.autocomplete || 'off'">
+
+  <button mdSuffix *ngIf="inputInfo.suffix">
+    <md-icon mdSuffix [fontIcon]="inputInfo.suffix"></md-icon>
+  </button>
+
+</md-input-container>
+
+<div [ngxErrors]="inputInfo.formControlName">
+  <div *ngFor="let error of inputInfo.errors"
+       class="warn-color-font"
+       [ngxError]="error.type"
+       [when]="error.when">
+
+    {{error.message}}
+  </div>
+</div>

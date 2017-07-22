@@ -1,0 +1,18 @@
+<md-input-container [formGroup]="group">
+
+  <textarea rows="4" mdInput
+            [formControlName]="inputInfo.formControlName"
+            [placeholder]="inputInfo.placeholder">
+  </textarea>
+
+</md-input-container>
+
+<div [ngxErrors]="inputInfo.formControlName">
+  <div *ngFor="let error of inputInfo.errors"
+       class="warn-color-font"
+       [ngxError]="error.type"
+       [when]="error.when">
+
+    {{error.message}}
+  </div>
+</div>

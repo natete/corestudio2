@@ -1,0 +1,22 @@
+<md-input-container [formGroup]="group">
+
+  <input type="text" mdInput
+         [mdDatepicker]="picker"
+         [formControlName]="inputInfo.formControlName"
+         [placeholder]="inputInfo.placeholder"
+         (focus)="openDatepicker($event)">
+
+  <button type="button" mdSuffix *ngIf="inputInfo.suffix" [mdDatepickerToggle]="picker" [ngClass]="['fa', inputInfo.suffix]">
+  </button>
+</md-input-container>
+<md-datepicker #picker></md-datepicker>
+
+<div [ngxErrors]="inputInfo.formControlName">
+  <div *ngFor="let error of inputInfo.errors"
+       class="warn-color-font"
+       [ngxError]="error.type"
+       [when]="error.when">
+
+    {{error.message}}
+  </div>
+</div>

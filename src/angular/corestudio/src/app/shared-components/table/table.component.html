@@ -1,0 +1,34 @@
+<div class="table-wrapper">
+
+  <md-input-container class="search-input">
+    <md-icon mdPrefix fontIcon="fa-search"></md-icon>
+    <input mdInput placeholder="Buscar" (keyup)="onTextChange()" [(ngModel)]="searchTerm">
+  </md-input-container>
+
+  <table cellspacing="0" *ngIf="items && items.length">
+    <thead class="primary-color-bg">
+    <tr>
+      <th *ngFor="let header of tableDefinition.headers">{{header}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of items">
+      <td *ngFor="let field of tableDefinition.fields" [style.text-align]="field.fieldAlignment || 'left'">
+        <ng-container [ngSwitch]="field.fieldType">
+          <div *ngSwitchCase="'text'">
+            {{item[field.fieldName]}}
+          </div>
+          <div *ngSwitchCase="'image'"
+               [style.background-image]="'url(' + item[field.fieldName] + ')'"
+               class="image-wrapper">
+
+          </div>
+        </ng-container>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="!items || !items.length" class="warn-color-font">Su búsqueda no ha tenido resultados</p>
+
+</div>

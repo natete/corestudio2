@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/observable/fromPromise';
+import 'rxjs/add/operator/catch';
 import { TokenService } from '../auth/token.service';
 import { SpinnerService } from '../spinner/spinner.service';
 import { ErrorCode } from './error-code';
@@ -80,13 +81,20 @@ export class HttpService extends Http {
 
       } else {
         this.tokenService.clearToken();
-        return Observable.fromPromise(this.router.navigate(['/login']));
+        if (this.router.url === '/login') {
+          return Observable.throw(error);
+        } else {
+          return Observable.fromPromise(this.router.navigate(['/login']));
+        }
       }
+    } else {
+      this.spinnerService.stopSpinner();
+      return Observable.throw(error);
     }
   }
 
   private handleNewToken(data: any, url: string | Request, options?: RequestOptionsArgs): Observable<any> {
-    this.tokenService.setAccessToken(data.token);
+    this.tokenService.setAuthInfo(data);
     this.refreshing.next(false);
     return this.request(url, options)
   }

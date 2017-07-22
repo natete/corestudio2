@@ -3,15 +3,17 @@ import { CommonModule } from '@angular/common';
 import { ClientsListComponent } from './clients-list/clients-list.component';
 import { SharedComponentsModule } from '../shared-components/shared-components.module';
 import { ClientService } from './client.service';
-import { MaterialComponentsModule } from '../core/material-components/material-components.module';
+import { ClientFormComponent } from './client-form/client-form.component';
+import { ClientContainerComponent } from './client-container/client-container.component';
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    MaterialComponentsModule,
+    CoreModule,
     SharedComponentsModule
   ],
-  declarations: [ClientsListComponent],
+  declarations: [ClientsListComponent, ClientFormComponent, ClientContainerComponent],
   providers: [ClientService]
 })
 export class ClientModule {

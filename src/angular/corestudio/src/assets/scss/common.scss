@@ -1,6 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700');
 @import "variables";
 
+body {
+  overflow: hidden;
+  height: 100vh;
+}
+
 .corestudio-app {
   background-color: #EBEBEC;
   font-family: 'Roboto', sans-serif;
@@ -27,4 +32,9 @@
       height: $header-bar-height;
     }
   }
+}
+
+md-datepicker-content {
+  width: 296px;
+  height: 314px;
 }
